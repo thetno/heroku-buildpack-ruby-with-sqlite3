@@ -252,6 +252,26 @@ private
   # install the vendored ruby
   # @return [Boolean] true if it installs the vendored ruby and false otherwise
   def install_ruby
+    if ENV["SYSTEM_RUBY"]
+      install_system_ruby ENV["SYSTEM_RUBY"]
+    else
+      install_ruby_orig
+    end
+  end
+
+  def install_system_ruby(ruby)
+    instrument 'ruby.install_system_ruby' do
+      dir = File.dirname(ruby)
+      file = File.basename(ruby)
+
+      install_symlink("ruby", "#{dir}/#{file}")
+      install_symlink("gem",  "#{dir}/#{file.gsub("ruby","gem")}")
+      install_symlink("ri",   "#{dir}/#{file.gsub("ruby","ri")}")
+      install_symlink("rdoc", "#{dir}/#{file.gsub("ruby","rdoc")}")
+    end
+  end
+
+  def install_ruby_orig
     instrument 'ruby.install_ruby' do
       return false unless ruby_version
 
@@ -413,6 +433,14 @@ WARNING
     FileUtils.mkdir_p bin_dir
     Dir.chdir(bin_dir) do |dir|
       @fetchers[:buildpack].fetch_untar("#{name}.tgz")
+    end
+  end
+
+  def install_symlink(name, file)
+    bin_dir = "bin"
+    FileUtils.mkdir_p bin_dir
+    Dir.chdir(bin_dir) do |dir|
+      File.symlink(file,name)
     end
   end
 
