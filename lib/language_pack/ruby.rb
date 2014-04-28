@@ -612,7 +612,10 @@ puts File.expand_path( "../../vendor/sqlite3.h", $PROGRAM_NAME )
 puts run( "ls -al #{File.expand_path( "../../vendor/sqlite3.h", $PROGRAM_NAME )}" )
 
 puts yaml_include
+puts run( "ls -al #{yaml_include}" )
 
+puts run( "cp #{File.expand_path( "../../vendor/sqlite3.h", $PROGRAM_NAME )} #{yaml_include}" )
+puts run( "ls -al #{yaml_include}" )
 
 
           puts "Running: #{bundle_command}"
