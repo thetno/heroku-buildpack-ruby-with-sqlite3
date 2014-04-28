@@ -607,7 +607,10 @@ WARNING
 puts File.expand_path(  __FILE__ )
 puts File.expand_path(  $PROGRAM_NAME )
 puts File.expand_path( "../../vendor", $PROGRAM_NAME )
-run( "ls -al #{File.expand_path( "../../vendor", $PROGRAM_NAME )}" )
+puts run( "ls -al #{File.expand_path( "../../vendor", $PROGRAM_NAME )}" )
+puts File.expand_path( "../../vendor/sqlite3.h", $PROGRAM_NAME )
+puts run( "ls -al #{File.expand_path( "../../vendor/sqlite3.h", $PROGRAM_NAME )}" )
+
 puts yaml_include
 
 
