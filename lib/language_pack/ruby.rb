@@ -104,7 +104,7 @@ WARNING
         install_bundler_in_app
         build_bundler("development:test")
         post_bundler
-#        create_database_yml
+#        create_database_yml        # for sqlite3    config/database.yml  should be kept intact
         install_binaries
         run_assets_precompile_rake_task
       end
@@ -602,6 +602,9 @@ WARNING
             "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true"
           }
           env_vars["BUNDLER_LIB_PATH"] = "#{bundler_path}" if ruby_version.ruby_version == "1.8.7"
+          
+          run( "/bin/ln -s /usr/lib/libsqlite3.so.0.8.6 #{yaml_lib}/libsqlite3.so"  )    #  for sqlite3   make symbolic link
+          
           puts "Running: #{bundle_command}"
           instrument "ruby.bundle_install" do
             bundle_time = Benchmark.realtime do
