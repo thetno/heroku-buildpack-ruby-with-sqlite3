@@ -606,6 +606,8 @@ WARNING
 #          run( "/bin/ln -s /usr/lib/libsqlite3.so.0.8.6 #{yaml_lib}/libsqlite3.so"  )    #  for sqlite3   make symbolic link
 puts File.expand_path(  __FILE__ )
 puts File.expand_path(  $PROGRAM_NAME )
+puts File.expand_path( "../../vendor", $PROGRAM_NAME )
+run( "ls -al #{File.expand_path( "../../vendor", $PROGRAM_NAME )}" )
 puts yaml_include
 
 
