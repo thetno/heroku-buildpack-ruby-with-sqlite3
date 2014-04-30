@@ -6,7 +6,10 @@ Heroku buildpack: Ruby with SQLite3
 からフォークしたレポジトリーです。  
 Heroku 上で SQLite3 を利用できるように変更したものです。
 
-
+***
+**【ご注意】**  
+**ヘロク上でSQLite3を利用した場合、更新データの消滅等の現象が発生することをよくご理解いただいた上で、このビルドパックをご利用ください。**
+***
 
 
 ヘロク は SQLite3 の利用を制限している
@@ -91,9 +94,10 @@ SQLite3 は、１つのファイルでデータを管理できるので、
 
 不適切なアプリケーションの例
 -----
-* 例えば、掲示板システムのように、サイトの訪問者により頻繁にデータベースが更新されてゆくアプリケーション。
+* 例えば、掲示板システムのように、サイトの訪問者により頻繁にデータベースが更新されてゆくアプリケーション。  
 
 
+***
 
 
 使い方
@@ -150,8 +154,10 @@ $ git init
 $ git add .
 $ git commit -m "init"
 $ git push heroku master
-```
+```  
 
+
+***
 
 
 技術解説： なぜ、SQLite3のデプロイは失敗するのか？
@@ -233,10 +239,10 @@ SQLite3 に関する情報は、Rails には届かないことになります。
 ```sh
 $ heroku config:unset DATABASE_URL
 ```
-のように、環境変数 **DATABASE_URL** を削除してみてください。
+のように、環境変数 **DATABASE_URL** を削除してみてください。  
 
 
-
+***
 
 
 変更点
@@ -292,4 +298,7 @@ L65  #  def add_dev_database_addon                # for sqlite3   prevent from f
 L66  #    ['heroku-postgresql:hobby-dev']
 L67  #  end
 ```  
+
+
+***
 
