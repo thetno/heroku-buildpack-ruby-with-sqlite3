@@ -173,8 +173,21 @@ sqlite3 の gem のインストールにおいては、Rubyのみで記述され
 **ネーティブ・エクステンション(native extension)** と呼ばれるライブラリを作成しようとします。
 これは、Gemインストーラーが C言語で作成されたプログラムを コンパイル して リンク することを意味します。  
 ところが、ヘロクの Cedarスタックは、C言語のコンパイラーが必要とする **sqlite3.h** というヘッダー・ファイルを持っていません。
+そのため、以下のように **sqlite3.h** が見つからない、という旨のエラーが発生し、デプロイが失敗します。
+
+```
+Gem::Installer::ExtensionBuildError: ERROR: Failed to build gem native extension.
+/tmp/build_d2469b1e-a763-4b87-8342-a3be831993fa/vendor/ruby-2.0.0/bin/ruby extconf.rb
+checking for sqlite3.h... no
+sqlite3.h is missing. Try 'port install sqlite3 +universal',
+'yum install sqlite-devel' or 'apt-get install libsqlite3-dev'
+and check your shared library search path (the
+location where your sqlite3 shared library is located).
+```
+
 さらに、リンクの際に必要となる **libsqlite3.so** という名のライブラリのシンボリックリンクも存在していません。
-これは別の言い方をすると、Ubuntu 10.04ベースの ヘロクの Cedarスタックに
+
+これは、上記のエラー・メッセージにもあるとおり、Ubuntu 10.04ベースの ヘロクの Cedarスタックに
 **[libsqlite3-dev](http://packages.ubuntu.com/lucid/libsqlite3-dev)** 
 と呼ばれるパッケージがインストールされていない、ということを示しています。
 
